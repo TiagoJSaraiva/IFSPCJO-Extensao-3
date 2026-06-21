@@ -84,6 +84,24 @@ const EXTERNAL_LINK_CARDS = [
 ];
 
 const TYPE_LABEL_BY_EXTENSION = {
+  /**
+   *  @description 
+   *  Mapeia extensões de arquivo para descrições legíveis usadas em textos acessíveis,
+   *  principalmente no aria-label dos cards.
+   *
+   *  Essa constante NÃO define o ícone do card. Para isso, use ICON_BY_EXTENSION.
+   * 
+   *  Exemplo:
+   *  arquivo "apostila.pdf" + tipo "PDF"
+   *  gera um aria-label como:
+   *  "Abrir material Apostila em PDF, abre em nova aba"
+   *
+   *  Prefira descrições compreensíveis para o usuário, como "vídeo", "imagem",
+   *  "planilha" ou "arquivo compactado", em vez de apenas repetir a extensão,
+   *  especialmente quando a extensão for pouco clara.
+   *
+   *  Se uma extensão não estiver listada aqui, o script usa "arquivo" como fallback.
+   */
   ".pdf": "PDF",
 
   ".mp4": "vídeo",
