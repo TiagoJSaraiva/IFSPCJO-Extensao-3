@@ -1,1 +1,1 @@
-Projeto IFSP CJO disciplina extensão 3
+Projeto da disciplina de Extensão 3, do IFSP-CJO.

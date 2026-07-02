@@ -15,14 +15,14 @@ const ICON_BY_EXTENSION = {
 
   /**
    *  @description
-   *  Objeto literal responsável por relacionar extensão dos arquivos em /recursos/materiais
-   *  com ícones em /recursos/icones.
+   *  Objeto literal responsável por relacionar a extensão dos arquivos em /recursos/materiais
+   *  com os ícones em /recursos/icones.
    * 
-   *  Esse objeto é usado pra cada link para cada material ser renderizado no HTML final
-   *  com o ícone correto com base na extensão.
+   *  Esse objeto é usado pra cada link, para que cada material seja renderizado no HTML final
+   *  com o ícone correto tendo como base a extensão.
    * 
-   *  A princípio, todas as extensões estão cobertas e talvez até mais doque necessário,
-   *  então só mexer se for necessário mesmo.
+   *  A princípio, todas as extensões estão cobertas (talvez até mais do que o essencial),
+   *  então só mexa se for absolutamente necessário.
    */
 
   ".pdf": "pdf.png",
@@ -60,7 +60,7 @@ const EXTERNAL_LINK_CARDS = [
 
   /**
    *  @description
-   *  Array de objetos representando cards de materiais acessíveis via links externos
+   *  Array de objetos representando cards de materiais acessíveis via links externos.
    */
 
   {
