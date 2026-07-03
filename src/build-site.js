@@ -6,6 +6,7 @@ const ROOT_DIR = __dirname;
 const TEMPLATE_PATH = path.join(ROOT_DIR, "template.html");
 const YOUTUBE_TEMPLATE_PATH = path.join(ROOT_DIR, "embbeded-youtube-page-template.html");
 const SOURCE_CSS_PATH = path.join(ROOT_DIR, "styles.css");
+const SOURCE_LOGO_PATH = path.join(ROOT_DIR, "logo.png");
 
 const PUBLIC_DIR = path.join(ROOT_DIR, "../recursos");
 const MATERIAIS_DIR = path.join(PUBLIC_DIR, "materiais");
@@ -13,6 +14,7 @@ const MATERIAIS_DIR = path.join(PUBLIC_DIR, "materiais");
 const DIST_DIR = path.join(ROOT_DIR, "../app");
 const DIST_HTML_PATH = path.join(DIST_DIR, "index.html");
 const DIST_CSS_PATH = path.join(DIST_DIR, "styles.css");
+const DIST_LOGO_PATH = path.join(DIST_DIR, "logo.png");
 const DIST_VIDEOS_DIR = path.join(DIST_DIR, "videos");
 
 const ICON_BY_EXTENSION = {
@@ -376,6 +378,7 @@ function build() {
 
   copyDir(PUBLIC_DIR, DIST_DIR);
   fs.copyFileSync(SOURCE_CSS_PATH, DIST_CSS_PATH);
+  fs.copyFileSync(SOURCE_LOGO_PATH, DIST_LOGO_PATH);
 
   const template = fs.readFileSync(TEMPLATE_PATH, "utf8");
 
