@@ -4,12 +4,16 @@ const path = require("path");
 const ROOT_DIR = __dirname;
 
 const TEMPLATE_PATH = path.join(ROOT_DIR, "template.html");
+const YOUTUBE_TEMPLATE_PATH = path.join(ROOT_DIR, "embbeded-youtube-page-template.html");
+const SOURCE_CSS_PATH = path.join(ROOT_DIR, "styles.css");
 
 const PUBLIC_DIR = path.join(ROOT_DIR, "../recursos");
 const MATERIAIS_DIR = path.join(PUBLIC_DIR, "materiais");
 
 const DIST_DIR = path.join(ROOT_DIR, "../dist");
 const DIST_HTML_PATH = path.join(DIST_DIR, "index.html");
+const DIST_CSS_PATH = path.join(DIST_DIR, "styles.css");
+const DIST_VIDEOS_DIR = path.join(DIST_DIR, "videos");
 
 const ICON_BY_EXTENSION = {
 
@@ -74,11 +78,11 @@ const EMBEDDED_YOUTUBE_VIDEOS = [
 
   {
     label: "YouTube",
-    href: "https://youtu.be/tXLCOGXfd7o",
+    href: "tXLCOGXfd7o",
     icon: "youtube.png",
     typeLabel: "link para página com vídeo"
   },
-]
+];
 
 const TYPE_LABEL_BY_EXTENSION = {
   /**
@@ -210,6 +214,29 @@ function encodePathForHref(filePath) {
     .join("/");
 }
 
+function slugify(value) {
+  return String(value ?? "")
+    .normalize("NFD")
+    .replace(/[\u0300-\u036f]/g, "")
+    .toLowerCase()
+    .replace(/[^a-z0-9]+/g, "-")
+    .replace(/^-+|-+$/g, "");
+}
+
+function getUniqueSlug(baseSlug, usedSlugs) {
+  let suffix = 2;
+  let slug = baseSlug;
+
+  while (usedSlugs.has(slug)) {
+    slug = `${baseSlug}-${suffix}`;
+    suffix += 1;
+  }
+
+  usedSlugs.add(slug);
+
+  return slug;
+}
+
 function getIconForFile(filePath) {
   const extension = path.extname(filePath).toLowerCase();
 
@@ -230,6 +257,37 @@ function getExternalLinkCards() {
       href: linkCard.href,
       iconSrc: `./icones/${encodeURIComponent(linkCard.icon)}`,
       ariaPrefix: "Abrir link"
+    };
+  });
+}
+
+function getEmbeddedYoutubeEntries() {
+  const usedSlugs = new Set();
+
+  return EMBEDDED_YOUTUBE_VIDEOS.map((youtubeVideo, index) => {
+    if (!youtubeVideo.href) {
+      throw new Error(`Video do YouTube sem href no indice ${index}.`);
+    }
+
+    const baseSlug = slugify(youtubeVideo.label) || `video-${index + 1}`;
+    const slug = getUniqueSlug(baseSlug, usedSlugs);
+
+    return {
+      ...youtubeVideo,
+      slug,
+      pageHref: `./videos/${slug}.html`
+    };
+  });
+}
+
+function getEmbeddedYoutubeCards(youtubeEntries) {
+  return youtubeEntries.map((youtubeVideo) => {
+    return {
+      label: youtubeVideo.label,
+      typeLabel: youtubeVideo.typeLabel,
+      href: youtubeVideo.pageHref,
+      iconSrc: `./icones/${encodeURIComponent(youtubeVideo.icon)}`,
+      ariaPrefix: "Abrir video"
     };
   });
 }
@@ -299,19 +357,37 @@ function renderCards(cards) {
   return cards.map(renderCard).join("\n");
 }
 
+function buildEmbeddedYoutubePages(youtubeEntries) {
+  ensureDir(DIST_VIDEOS_DIR);
+
+  const template = fs.readFileSync(YOUTUBE_TEMPLATE_PATH, "utf8");
+
+  for (const youtubeVideo of youtubeEntries) {
+    const videoId = escapeHtml(youtubeVideo.href);
+    const finalHtml = template.replaceAll("{ID_DO_VIDEO}", videoId);
+    const outputPath = path.join(DIST_VIDEOS_DIR, `${youtubeVideo.slug}.html`);
+
+    fs.writeFileSync(outputPath, finalHtml, "utf8");
+  }
+}
+
 function build() {
   cleanDir(DIST_DIR);
 
   copyDir(PUBLIC_DIR, DIST_DIR);
+  fs.copyFileSync(SOURCE_CSS_PATH, DIST_CSS_PATH);
 
   const template = fs.readFileSync(TEMPLATE_PATH, "utf8");
 
   const materialCards = getMaterialCards();
   const externalLinkCards = getExternalLinkCards();
+  const embeddedYoutubeEntries = getEmbeddedYoutubeEntries();
+  const embeddedYoutubeCards = getEmbeddedYoutubeCards(embeddedYoutubeEntries);
 
   const allCards = [
     ...materialCards,
-    ...externalLinkCards
+    ...externalLinkCards,
+    ...embeddedYoutubeCards
   ];
 
   const cardsHtml = renderCards(allCards);
@@ -319,10 +395,12 @@ function build() {
   const finalHtml = template.replaceAll("{{MATERIAL_CARDS}}", cardsHtml);
 
   fs.writeFileSync(DIST_HTML_PATH, finalHtml, "utf8");
+  buildEmbeddedYoutubePages(embeddedYoutubeEntries);
 
   console.log("Build concluído.");
   console.log(`Materiais encontrados: ${materialCards.length}`);
   console.log(`Links externos encontrados: ${externalLinkCards.length}`);
+  console.log(`Videos do YouTube encontrados: ${embeddedYoutubeCards.length}`);
   console.log(`Cards gerados: ${allCards.length}`);
   console.log(`Arquivo gerado: ${DIST_HTML_PATH}`);
 }
