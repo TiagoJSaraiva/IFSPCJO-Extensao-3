@@ -11,6 +11,13 @@ const SOURCE_LOGO_PATH = path.join(ROOT_DIR, "logo.png");
 const PUBLIC_DIR = path.join(ROOT_DIR, "../recursos");
 const MATERIAIS_DIR = path.join(PUBLIC_DIR, "materiais");
 
+const MATERIAL_LABELS = {
+  "pdf1.pdf": "Material 1",
+  "pdf2.pdf": "Material 2",
+  "pdf3.pdf": "Mapa Mental",
+  "pdf4.pdf": "Exercícios"
+};
+
 const DIST_DIR = path.join(ROOT_DIR, "../app");
 const DIST_HTML_PATH = path.join(DIST_DIR, "index.html");
 const DIST_CSS_PATH = path.join(DIST_DIR, "styles.css");
@@ -79,7 +86,7 @@ const EMBEDDED_YOUTUBE_VIDEOS = [
    */
 
   {
-    label: "YouTube",
+    label: "Vídeo",
     href: "tXLCOGXfd7o",
     icon: "youtube.png",
     typeLabel: "link para página com vídeo"
@@ -192,12 +199,31 @@ function listFilesRecursively(dirPath, baseDir = dirPath) {
 
 function normalizeLabel(filePath) {
   const parsedPath = path.parse(filePath);
-
-  return parsedPath.name
+  const baseName = parsedPath.name
     .replace(/[-_]+/g, " ")
     .replace(/\s+/g, " ")
-    .trim()
-    .replace(/\b\p{L}/gu, (char) => char.toUpperCase());
+    .trim();
+
+  const spacedName = baseName
+    .replace(/([a-z])([A-Z])/g, "$1 $2")
+    .replace(/([A-Za-z])(\d)/g, "$1 $2")
+    .replace(/(\d)([A-Za-z])/g, "$1 $2");
+
+  return spacedName
+    .split(" ")
+    .filter(Boolean)
+    .map((word, index) => {
+      if (/^\d+$/.test(word)) {
+        return word;
+      }
+
+      if (index === 0) {
+        return word.charAt(0).toUpperCase() + word.slice(1).toLowerCase();
+      }
+
+      return word.toLowerCase();
+    })
+    .join(" ");
 }
 
 function escapeHtml(value) {
@@ -294,6 +320,12 @@ function getEmbeddedYoutubeCards(youtubeEntries) {
   });
 }
 
+function getMaterialLabel(filePath) {
+  const normalizedPath = filePath.replace(/\\/g, "/");
+
+  return MATERIAL_LABELS[normalizedPath] ?? normalizeLabel(filePath);
+}
+
 function getMaterialCards() {
   if (!fs.existsSync(MATERIAIS_DIR)) {
     throw new Error(`Pasta de materiais não encontrada: ${MATERIAIS_DIR}`);
@@ -302,7 +334,7 @@ function getMaterialCards() {
   return listFilesRecursively(MATERIAIS_DIR)
     .sort((a, b) => a.localeCompare(b, "pt-BR"))
     .map((filePath) => {
-      const label = normalizeLabel(filePath);
+      const label = getMaterialLabel(filePath);
       const typeLabel = getTypeLabelForFile(filePath);
       const icon = getIconForFile(filePath);
 

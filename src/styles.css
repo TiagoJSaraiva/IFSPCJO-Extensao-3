@@ -301,15 +301,19 @@ main {
   }
 
   .project-title {
-    font-size: 42px;
+    font-size: 32px;
   }
 
   .project-description {
-    font-size: 27px;
+    font-size: 23px;
   }
 
   .materials-title {
-    font-size: 42px;
+    font-size: 32px;
+  }
+
+  .material-label {
+    font-size: 20px;
   }
 
   .materials-grid {
