@@ -45,7 +45,7 @@
 - Estilização das páginas do projeto.
 - Ao rodar ```npm run build```, o style.css do /app é atualizado para corresponder a este.
 
-### dist/index.html
+### app/index.html
 
 - HTML final gerado. **Não mexer nele diretamente**, pois ao buildar o projeto novamente, o script vai reescrever este arquivo com base no template e nos materiais.
 - Este arquivo que deve ser aberto no navegador para testes, apresentação, etc.
@@ -64,8 +64,8 @@
 ## 3. Fluxo de desenvolvimento
 
 1. **Não precisa baixar node package modules**, pois o projeto não possui nenhuma dependência.
-2. Rode ```npm run build``` no terminal uma vez para gerar **dist/index.html**.
-3. Entre em /dist e abra **index.html** no navegador ou hospede com alguma extensão, como o **Live Server** do VS Code (altamente recomendado, pois incorpora reload automático da página no navegador).
+2. Rode ```npm run build``` no terminal uma vez para gerar **app/index.html**.
+3. Entre em /app e abra **index.html** no navegador ou hospede com alguma extensão, como o **Live Server** do VS Code (altamente recomendado, pois incorpora reload automático da página no navegador).
 4. Faça alterações no projeto como quiser, e execute ```npm run build``` no terminal na raiz do projeto para atualizar o **index.html**.
 5. Se o **index.html** estiver hospedado e com Live Reload, ele automaticamente atualizará no navegador.
 
