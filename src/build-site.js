@@ -63,25 +63,22 @@ const EXTERNAL_LINK_CARDS = [
    *  Array de objetos representando cards de materiais acessíveis via links externos.
    */
 
-  {
-    label: "Google Drive",
-    href: "https://drive.google.com/",
-    icon: "drive.png",
-    typeLabel: "link externo do Google Drive"
-  },
+];
+
+const EMBEDDED_YOUTUBE_VIDEOS = [
+
+  /**
+   *  @description
+   *  Array de objetos representando vídeos do YouTube que serão incorporados na página.
+   */
+
   {
     label: "YouTube",
-    href: "https://www.youtube.com/",
+    href: "https://youtu.be/tXLCOGXfd7o",
     icon: "youtube.png",
-    typeLabel: "link externo do YouTube"
+    typeLabel: "link para página com vídeo"
   },
-  {
-    label: "GitHub",
-    href: "https://github.com/",
-    icon: "github.png",
-    typeLabel: "link externo do GitHub"
-  }
-];
+]
 
 const TYPE_LABEL_BY_EXTENSION = {
   /**

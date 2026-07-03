@@ -1,0 +1,338 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <title>IFSP-CJO</title>
+
+  <style>
+    :root {
+      --header-bg: #30432d;
+      --page-bg: #1f1d1e;
+      --text-main: #f2f2f2;
+      --text-muted: #dddddd;
+      --focus-color: #ffffff;
+      --shadow: rgba(0, 0, 0, 0.35);
+      --content-width: 980px;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    html {
+      min-height: 100%;
+      background: var(--page-bg);
+      color-scheme: dark;
+    }
+
+    body {
+      margin: 0;
+      min-height: 100vh;
+      background: var(--page-bg);
+      color: var(--text-main);
+      font-family: "Segoe UI", Arial, Helvetica, sans-serif;
+    }
+
+    .skip-link {
+      position: absolute;
+      left: 16px;
+      top: 16px;
+      z-index: 10;
+      padding: 10px 14px;
+      background: #ffffff;
+      color: #111111;
+      text-decoration: none;
+      font-weight: 700;
+      border-radius: 4px;
+      transform: translateY(-140%);
+    }
+
+    .skip-link:focus {
+      transform: translateY(0);
+    }
+
+    .site-header {
+      min-height: 118px;
+      background: var(--header-bg);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      position: relative;
+      box-shadow: 0 4px 10px var(--shadow);
+      padding: 24px 48px;
+    }
+
+    .site-logo {
+      position: absolute;
+      left: 54px;
+      top: 50%;
+      transform: translateY(-50%);
+      width: 76px;
+      height: 76px;
+      object-fit: contain;
+      display: block;
+    }
+
+    .site-title {
+      margin: 0;
+      color: var(--text-main);
+      font-size: 42px;
+      font-weight: 300;
+      letter-spacing: 3px;
+      text-transform: uppercase;
+      text-align: center;
+    }
+
+    main {
+      width: min(var(--content-width), calc(100% - 48px));
+      margin: 0 auto;
+      padding: 92px 0 80px;
+    }
+
+    .intro {
+      max-width: 860px;
+    }
+
+    .project-title {
+      margin: 0 0 28px;
+      font-size: 31px;
+      line-height: 1.15;
+      font-weight: 600;
+      color: var(--text-main);
+    }
+
+    .project-description {
+      margin: 0;
+      max-width: 850px;
+      color: var(--text-muted);
+      font-size: 30px;
+      line-height: 1.12;
+      font-weight: 300;
+    }
+
+    .materials {
+      margin-top: 134px;
+    }
+
+    .materials-title {
+      margin: 0 0 28px;
+      font-size: 31px;
+      font-weight: 600;
+      color: var(--text-main);
+    }
+
+    .materials-grid {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+      gap: 54px 64px;
+      align-items: start;
+    }
+
+    .material-item {
+      margin: 0;
+    }
+
+    .material-card {
+      min-height: 150px;
+      color: var(--text-main);
+      text-decoration: none;
+
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: flex-start;
+      gap: 26px;
+
+      border-radius: 10px;
+      transition:
+        transform 160ms ease,
+        opacity 160ms ease;
+    }
+
+    .material-card:hover {
+      transform: translateY(-4px);
+      opacity: 0.88;
+    }
+
+    .material-card:focus-visible {
+      outline: 4px solid var(--focus-color);
+      outline-offset: 8px;
+    }
+
+    .material-icon {
+      width: 88px;
+      height: 88px;
+      object-fit: contain;
+      display: block;
+    }
+
+    .material-label {
+      font-size: 26px;
+      line-height: 1.1;
+      text-align: center;
+      text-transform: uppercase;
+      color: var(--text-main);
+      font-weight: 300;
+    }
+
+    .empty-materials {
+      color: var(--text-muted);
+      font-size: 22px;
+      line-height: 1.4;
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      .material-card {
+        transition: none;
+      }
+
+      .material-card:hover {
+        transform: none;
+      }
+    }
+
+    @media (max-width: 720px) {
+      .site-header {
+        min-height: 202px;
+        justify-content: center;
+        padding: 32px 28px;
+      }
+
+      .site-logo {
+        position: static;
+        transform: none;
+        width: 76px;
+        height: 76px;
+        margin-right: 28px;
+      }
+
+      .site-title {
+        font-size: 58px;
+        letter-spacing: 2px;
+      }
+
+      main {
+        width: 100%;
+        padding: 108px 51px 90px;
+      }
+
+      .intro {
+        max-width: none;
+      }
+
+      .project-title {
+        text-align: center;
+        font-size: 62px;
+        font-weight: 300;
+        margin-bottom: 54px;
+      }
+
+      .project-description {
+        font-size: 35px;
+        line-height: 1.08;
+      }
+
+      .materials {
+        margin-top: 132px;
+      }
+
+      .materials-title {
+        text-align: center;
+        font-size: 60px;
+        font-weight: 600;
+        margin-bottom: 70px;
+      }
+
+      .materials-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 66px 78px;
+      }
+
+      .material-icon {
+        width: 118px;
+        height: 118px;
+      }
+
+      .material-label {
+        font-size: 26px;
+      }
+    }
+
+    @media (max-width: 520px) {
+      .site-header {
+        min-height: 132px;
+        padding: 24px 20px;
+      }
+
+      .site-logo {
+        width: 54px;
+        height: 54px;
+        margin-right: 18px;
+      }
+
+      .site-title {
+        font-size: 36px;
+      }
+
+      main {
+        padding: 64px 28px 72px;
+      }
+
+      .project-title {
+        font-size: 42px;
+      }
+
+      .project-description {
+        font-size: 27px;
+      }
+
+      .materials-title {
+        font-size: 42px;
+      }
+
+      .materials-grid {
+        gap: 54px 34px;
+      }
+
+      .material-icon {
+        width: 96px;
+        height: 96px;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <a class="skip-link" href="#conteudo-principal">Pular para o conteúdo principal</a>
+
+  <header class="site-header">
+    <img
+      class="site-logo"
+      src="./logo.png"
+      alt="Logo do site"
+      width="76"
+      height="76"
+    />
+
+    <h1 class="site-title">IFSP CJO</h1>
+  </header>
+ 
+  <section class="embbeded-video-section">
+    <iframe 
+      width="560" 
+      height="315" 
+      src="https://www.youtube.com/embed/ID_DO_VIDEO"
+      title="YouTube video player"
+      frameborder="0"
+      allowfullscreen>
+    </iframe>
+  </section>
+  
+</body>
+</html>
