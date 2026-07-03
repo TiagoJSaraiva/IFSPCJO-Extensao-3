@@ -10,7 +10,7 @@ const SOURCE_CSS_PATH = path.join(ROOT_DIR, "styles.css");
 const PUBLIC_DIR = path.join(ROOT_DIR, "../recursos");
 const MATERIAIS_DIR = path.join(PUBLIC_DIR, "materiais");
 
-const DIST_DIR = path.join(ROOT_DIR, "../dist");
+const DIST_DIR = path.join(ROOT_DIR, "../app");
 const DIST_HTML_PATH = path.join(DIST_DIR, "index.html");
 const DIST_CSS_PATH = path.join(DIST_DIR, "styles.css");
 const DIST_VIDEOS_DIR = path.join(DIST_DIR, "videos");
