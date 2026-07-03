@@ -60,7 +60,7 @@
 
 - Materiais usados pra criar os cards no site.
 - Podem ser de qualquer extensão, mas nem todas terão compatibilidade. Se encontrar problemas de compatibilidade ou comportamento inesperado ao tentar abrir uma extensão, o script provavelmente precisará de modificação.
-- Materiais que devem usar um ícone diferente em relação ao ícone definido para sua extensão devem ter no nome de seu arquivo, declarado o tipo de ícone a ser usado logo antes da declaração da extensão, a frente de um " **.** ", como por exemplo, arquivos de quiz que usam ícone **"quiz.png"** ao invés de **"pdf.png"** são nomeados como **"nomeDoArquivo.quiz.pdf"**, onde **".quiz.pdf"** se refere ao nome do ícone usado + extensão, e então, no script, **".quiz.pdf"** é relacionado ao ícone **"quiz.pdf"** em ```ICON_BY_EXTENSION```.
+- Materiais que devem usar um ícone diferente em relação ao ícone definido para sua extensão devem ter no nome de seu arquivo, declarado o tipo de ícone a ser usado logo antes da declaração da extensão, a frente de um " **.** ", como por exemplo, arquivos de quiz que usam ícone **"quiz.png"** ao invés de **"pdf.png"** são nomeados como **"nomeDoArquivo.quiz.pdf"**, onde **".quiz.pdf"** se refere ao nome do ícone usado + extensão, e então, no script, **".quiz.pdf"** é relacionado ao ícone **"quiz.pdf"** em ```ICON_BY_EXTENSION```, ao invés de usar o ícone definido pra extensão pdf.
 - **Evitar adicionar arquivos muito grandes.** Se precisar, considere colocar o arquivo no Drive, YouTube ou outro serviço do tipo, e colocar o link de acesso em ```EXTERNAL_LINK_CARDS```.
 
 ## 3. Fluxo de desenvolvimento
