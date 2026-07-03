@@ -300,6 +300,7 @@ function getMaterialCards() {
   }
 
   return listFilesRecursively(MATERIAIS_DIR)
+    .filter((filePath) => path.basename(filePath) !== ".gitkeep")
     .sort((a, b) => a.localeCompare(b, "pt-BR"))
     .map((filePath) => {
       const label = normalizeLabel(filePath);
