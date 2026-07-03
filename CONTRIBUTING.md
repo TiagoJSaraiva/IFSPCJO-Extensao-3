@@ -21,6 +21,7 @@
 - Script que gera cards de links para materiais automaticamente.
 - Alterar ```EXTERNAL_LINK_CARDS``` para adicionar links externos que são transformados em cards. Útil pra vídeos no YouTube, conteúdo no Drive, etc.
 - Alterar ```ICON_BY_EXTENSION``` para mudar qual imagem é usada pra gerar o card do link de materiais de determinada extensão, ou para adicionar relações novas entre **tipo de extensão - imagem do ícone**.
+- Alterar ```MATERIAL_LABELS``` para determinar qual nome aparecerá na UI para cada card de determinado link.
 - Alterar ```TYPE_LABEL_BY_EXTENSION``` para adicionar relações entre extensões e como elas devem ser referidas por leitores de tela.
 - Alterar ```EMBEDDED_YOUTUBE_VIDEOS``` para adicionar videos no youtube links do youtube que serão transformados em links que levam a páginas com vídeo integrado. 
 
@@ -59,6 +60,7 @@
 
 - Materiais usados pra criar os cards no site.
 - Podem ser de qualquer extensão, mas nem todas terão compatibilidade. Se encontrar problemas de compatibilidade ou comportamento inesperado ao tentar abrir uma extensão, o script provavelmente precisará de modificação.
+- Materiais que devem usar um ícone diferente em relação ao ícone definido para sua extensão devem ter no nome de seu arquivo, declarado o tipo de ícone a ser usado logo antes da declaração da extensão, a frente de um **.**, como por exemplo, arquivos de quiz que usam ícone **"quiz.png"** ao invés de **"pdf.png"** são nomeados como **"nomeDoArquivo.quiz.pdf"**, onde **".quiz.pdf"** se refere ao nome do ícone usado + extensão, e então, no script, **".quiz.pdf"** é relacionado ao ícone **"quiz.pdf"** em ```ICON_BY_EXTENSION```.
 - **Evitar adicionar arquivos muito grandes.** Se precisar, considere colocar o arquivo no Drive, YouTube ou outro serviço do tipo, e colocar o link de acesso em ```EXTERNAL_LINK_CARDS```.
 
 ## 3. Fluxo de desenvolvimento

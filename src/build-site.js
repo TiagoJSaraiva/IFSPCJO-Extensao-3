@@ -15,7 +15,9 @@ const MATERIAL_LABELS = {
   "pdf1.pdf": "Material 1",
   "pdf2.pdf": "Material 2",
   "pdf3.pdf": "Mapa Mental",
-  "pdf4.pdf": "Exercícios"
+  "pdf4.pdf": "Exercícios",
+  "quiz1.quiz.pdf": "Quiz 1",
+  "quiz2.quiz.pdf": "Quiz 2"
 };
 
 const DIST_DIR = path.join(ROOT_DIR, "../app");
@@ -39,6 +41,7 @@ const ICON_BY_EXTENSION = {
    */
 
   ".pdf": "pdf.png",
+  ".quiz.pdf": "quiz.png",
 
   ".mp4": "video.png",
   ".webm": "video.png",
@@ -66,7 +69,7 @@ const ICON_BY_EXTENSION = {
 
   ".zip": "zip.png",
   ".rar": "zip.png",
-  ".7z": "zip.png"
+  ".7z": "zip.png",
 };
 
 const EXTERNAL_LINK_CARDS = [
@@ -113,7 +116,7 @@ const TYPE_LABEL_BY_EXTENSION = {
    *  Se uma extensão não estiver listada aqui, o script usa "arquivo" como fallback.
    */
   ".pdf": "PDF",
-
+  ".quiz.pdf": "quiz",
   ".mp4": "vídeo",
   ".webm": "vídeo",
   ".mov": "vídeo",
@@ -265,14 +268,22 @@ function getUniqueSlug(baseSlug, usedSlugs) {
   return slug;
 }
 
+function getConfiguredExtension(filePath, extensionMap) {
+  const normalizedPath = filePath.toLowerCase();
+  const configuredExtensions = Object.keys(extensionMap).sort((a, b) => b.length - a.length);
+
+  return configuredExtensions.find((extension) => normalizedPath.endsWith(extension))
+    ?? path.extname(filePath).toLowerCase();
+}
+
 function getIconForFile(filePath) {
-  const extension = path.extname(filePath).toLowerCase();
+  const extension = getConfiguredExtension(filePath, ICON_BY_EXTENSION);
 
   return ICON_BY_EXTENSION[extension] ?? "file.png";
 }
 
 function getTypeLabelForFile(filePath) {
-  const extension = path.extname(filePath).toLowerCase();
+  const extension = getConfiguredExtension(filePath, TYPE_LABEL_BY_EXTENSION);
 
   return TYPE_LABEL_BY_EXTENSION[extension] ?? "arquivo";
 }
