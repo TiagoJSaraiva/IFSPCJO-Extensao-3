@@ -72,3 +72,4 @@
 ## 3. Deploy
 
 - Para realizar deploy, basta dar push no repositório local atualizado com as alterações feitas. Quando o ```git push``` é executado, o github também builda o projeto automaticamente.
+- Aguarde um intervalo de pelo menos 2 minutos a cada push, para evitar interromper os re-deploy sendo realizados no github pages.
